@@ -74,27 +74,34 @@ public class SubArray01
             }
         }
     }
-    
-    public void MaxHalf(int[] A, int sday, int eday){
+
+    public int MaxHalf(int[] A, int sday, int eday){
         int[] B = new int[A.length/2];
         int[] C = new int[A.length/2];
-        if(A.length > 1){
-            for(int i = 0; i < Math.floor(A.length/2); i++){
+        int j = 0;
+        int max = 0;
+        for(int i = 0; i < Math.floor(A.length/2); i++){
+            if (i < A.length/2){
                 B[i] = A[i];
             }
-            for(int i = (int) Math.floor(A.length/2); i < A.length; i++){
-                C[i] = A[i];
-            }
-            MaxHalf(B,sday,(int)Math.floor(eday/2));
-            MaxHalf(C,(int)Math.floor(eday/2),eday);
-            int total = MaxProfit(A,sday,eday);
-            int totalB = MaxProfit(B,sday,(int)Math.floor(eday/2));
-            int totalC = MaxProfit(C,(int)Math.floor(eday/2),eday);
-            if(totalB > total){
-                
+            else {
+                C[j] = A[i];
             }
         }
         
-        
+        if(sday == eday){
+            return A[sday];
+        }
+        else {
+            max = MaxProfit(A,0,A.length - 1);
+            if (max < MaxProfit(B,0,B.length - 1)){
+                max = MaxProfit(B,0,B.length - 1);
+            }
+            if (max < MaxProfit(C,0,C.length - 1)){
+                max = MaxProfit(C,0,C.length - 1);
+            }
+            return max;
+        }
+
     }
 }
